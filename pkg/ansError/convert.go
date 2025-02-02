@@ -1,5 +1,5 @@
 package ansError
 
-func ConvertCodeToStatus(status int) string {
-	return statusCode[status]
+func ConvertCodeToStatus(processStatus int) string {
+	return statusCode[processStatus]
 }

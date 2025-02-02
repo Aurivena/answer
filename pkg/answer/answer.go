@@ -30,9 +30,8 @@ func SendResponseSuccess(c *gin.Context, output any, processStatus int) {
 	if c == nil {
 		return
 	}
-	status := ansError.ConvertCodeToStatus(processStatus)
 	c.JSON(200, Message{
-		Status:  status,
+		Status:  ansError.ConvertCodeToStatus(processStatus),
 		Message: output,
 	})
 }
