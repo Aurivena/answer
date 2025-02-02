@@ -1,6 +1,7 @@
 package answer
 
 import (
+	"answer/pkg/err"
 	"github.com/gin-gonic/gin"
 )
 
@@ -25,12 +26,13 @@ func SendSuccess(c *gin.Context, message string, status any) {
 	})
 }
 
-func SendResponseSuccess(c *gin.Context, output, processStatus any) {
+func SendResponseSuccess(c *gin.Context, output any, processStatus int) {
 	if c == nil {
 		return
 	}
+	status := err.ConvertCodeToStatus(processStatus)
 	c.JSON(200, Message{
-		Status:  processStatus,
+		Status:  status,
 		Message: output,
 	})
 }
