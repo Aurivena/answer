@@ -1,6 +1,6 @@
-package ansError
+package ansCode
 
-var statusCode = map[int]string{
+var StatusCode = map[int]string{
 	200: "OK",
 	201: "Created",
 	202: "Accepted",

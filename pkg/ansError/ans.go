@@ -1,13 +1,26 @@
 package ansError
 
-func ConvertCodeToStatus(processStatus int) string {
-	return statusCode[processStatus]
+import "errors"
+
+func ConvertCodeToStatus(code int, stc map[int]string) (string, error) {
+	if ok := stc[code]; ok == "" {
+		return "", errors.New("такой код не существует")
+	}
+	return stc[code], nil
 }
 
-func AppendCode(code int, msg string) {
-	statusCode[code] = msg
+func AppendCode(code int, response string, stc map[int]string) error {
+	if ok := stc[code]; ok != "" {
+		return errors.New("такой код уже есть")
+	}
+	stc[code] = response
+	return nil
 }
 
-func DeleteCode(code int) {
-	delete(statusCode, code)
+func DeleteCode(code int, stc map[int]string) error {
+	if ok := stc[code]; ok == "" {
+		return errors.New("такой код не существует")
+	}
+	delete(stc, code)
+	return nil
 }
