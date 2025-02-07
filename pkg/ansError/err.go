@@ -1,4 +1,4 @@
-package ansCode
+package ansError
 
 var StatusCode = map[int]string{
 	200: "OK",

@@ -1,4 +1,4 @@
-package ansError
+package ansCode
 
 import "errors"
 

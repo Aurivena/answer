@@ -1,7 +1,7 @@
 package test
 
 import (
-	"answer/pkg/ansError"
+	"answer/pkg/ansCode"
 	"github.com/ozontech/allure-go/pkg/framework/provider"
 	"github.com/ozontech/allure-go/pkg/framework/runner"
 	"github.com/stretchr/testify/assert"
@@ -14,8 +14,8 @@ var test_statusCode = map[int]string{
 
 func TestAppendCode(t *testing.T) {
 	runner.Run(t, "Проверяет, что добавляется новый код в test_statusCode.", func(t provider.T) {
-		_ = ansError.AppendCode(2, "Test2", test_statusCode)
-		if ok, _ := ansError.ConvertCodeToStatus(2, test_statusCode); ok == "Test2" {
+		_ = ansCode.AppendCode(2, "Test2", test_statusCode)
+		if ok, _ := ansCode.ConvertCodeToStatus(2, test_statusCode); ok == "Test2" {
 			assert.True(t, true, "Новый код добавлен в map.")
 		} else {
 			assert.False(t, false, "Ошибка. Метод не добавляет код в map.")
@@ -25,7 +25,7 @@ func TestAppendCode(t *testing.T) {
 
 func TestFailAppendCode(t *testing.T) {
 	runner.Run(t, "Проверяет, что новый код не будет добавлен в test_statusCode и вызовет ошибку.", func(t provider.T) {
-		err := ansError.AppendCode(1, "Test2", test_statusCode)
+		err := ansCode.AppendCode(1, "Test2", test_statusCode)
 		if err != nil {
 			assert.True(t, true, "Код обработал событие при котором текущий код уже существует.")
 		} else {
@@ -37,8 +37,8 @@ func TestFailAppendCode(t *testing.T) {
 
 func TestDeleteCode(t *testing.T) {
 	runner.Run(t, "Проверяет, что удаляет код в test_statusCode.", func(t provider.T) {
-		_ = ansError.DeleteCode(2, test_statusCode)
-		if ok, _ := ansError.ConvertCodeToStatus(2, test_statusCode); ok != "Test1" {
+		_ = ansCode.DeleteCode(2, test_statusCode)
+		if ok, _ := ansCode.ConvertCodeToStatus(2, test_statusCode); ok != "Test1" {
 			assert.True(t, true, "Код удален из map.")
 		} else {
 			assert.False(t, false, "Ошибка. Метод не удаляет код из map.")
@@ -48,7 +48,7 @@ func TestDeleteCode(t *testing.T) {
 
 func TestFailDeleteCode(t *testing.T) {
 	runner.Run(t, "Проверяет, что функция не удалит код в test_statusCode и вызовет ошибку.", func(t provider.T) {
-		err := ansError.DeleteCode(666, test_statusCode)
+		err := ansCode.DeleteCode(666, test_statusCode)
 		if err != nil {
 			assert.True(t, true, "Код корректно обрабатывает событие при котором код не будет удален, если его нету в map")
 		} else {
@@ -59,7 +59,7 @@ func TestFailDeleteCode(t *testing.T) {
 
 func TestConvertCodeToStatus(t *testing.T) {
 	runner.Run(t, "Проверяет, что конвертирует указанный код в статус.", func(t provider.T) {
-		if ok, _ := ansError.ConvertCodeToStatus(1, test_statusCode); ok == "Test1" {
+		if ok, _ := ansCode.ConvertCodeToStatus(1, test_statusCode); ok == "Test1" {
 			assert.True(t, true, "Функция правильно конвертирует указанный код в статус.")
 		} else {
 			assert.False(t, false, "Ошибка. Метод не конвертирует указанный код в статус.")
@@ -69,7 +69,7 @@ func TestConvertCodeToStatus(t *testing.T) {
 
 func TestFailConvertCodeToStatus(t *testing.T) {
 	runner.Run(t, "Проверяет, что функция не конвертирует указанный код в статус и вызовет ошибку.", func(t provider.T) {
-		_, err := ansError.ConvertCodeToStatus(666, test_statusCode)
+		_, err := ansCode.ConvertCodeToStatus(666, test_statusCode)
 		if err != nil {
 			assert.True(t, true, "Конвертация не произошла тк такого кода не существует")
 		} else {

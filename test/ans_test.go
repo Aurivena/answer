@@ -1,8 +1,8 @@
 package test
 
 import (
-	"answer/pkg/ans"
-	"answer/pkg/ansCode"
+	"answer/pkg/ansCommand"
+	"answer/pkg/ansError"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/ozontech/allure-go/pkg/framework/provider"
@@ -23,9 +23,9 @@ var testVal = test{
 }
 
 var (
-	sendErrorResult           = fmt.Sprintf(`{"status":"%s","message":"Error тест"}`, ansCode.StatusCode[ansCode.NotFound])
-	sendSuccessResult         = fmt.Sprintf(`{"status":"%s","message":"Success тест"}`, ansCode.StatusCode[ansCode.OK])
-	sendResponseSuccessResult = fmt.Sprintf(`{"status": "%s", "message": {"Age": %d, "Name": "%s"}}`, ansCode.StatusCode[ansCode.OK], testVal.Age, testVal.Name)
+	sendErrorResult           = fmt.Sprintf(`{"status":"%s","message":"Error тест"}`, ansError.StatusCode[ansError.NotFound])
+	sendSuccessResult         = fmt.Sprintf(`{"status":"%s","message":"Success тест"}`, ansError.StatusCode[ansError.OK])
+	sendResponseSuccessResult = fmt.Sprintf(`{"status": "%s", "message": {"Age": %d, "Name": "%s"}}`, ansError.StatusCode[ansError.OK], testVal.Age, testVal.Name)
 )
 
 func TestSendError(t *testing.T) {

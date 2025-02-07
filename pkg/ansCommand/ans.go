@@ -15,7 +15,7 @@ func SendError(c *gin.Context, response string, code int) {
 	if c == nil {
 		return
 	}
-	status, err := ansError.ConvertCodeToStatus(code, ansCode.StatusCode)
+	status, err := ansCode.ConvertCodeToStatus(code, ansError.StatusCode)
 	if err != nil {
 		return
 	}
@@ -30,7 +30,7 @@ func SendSuccess(c *gin.Context, response string, code int) {
 	if c == nil {
 		return
 	}
-	status, err := ansError.ConvertCodeToStatus(code, ansCode.StatusCode)
+	status, err := ansCode.ConvertCodeToStatus(code, ansError.StatusCode)
 	if err != nil {
 		return
 	}
@@ -45,7 +45,7 @@ func SendResponseSuccess(c *gin.Context, output any, processStatus int) {
 	if c == nil {
 		return
 	}
-	status, err := ansError.ConvertCodeToStatus(processStatus, ansCode.StatusCode)
+	status, err := ansCode.ConvertCodeToStatus(processStatus, ansError.StatusCode)
 	if err != nil {
 		return
 	}
