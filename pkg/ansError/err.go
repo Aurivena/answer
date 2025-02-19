@@ -18,9 +18,10 @@ var StatusCode = map[int]string{
 	504: "Gateway Timeout",
 }
 
+type ErrorCode int
+
 // CONST, чтобы вызывать нужный код ошибки
 const (
-	ErrorCode           = 0
 	OK                  = 200
 	Created             = 201
 	Accepted            = 202
