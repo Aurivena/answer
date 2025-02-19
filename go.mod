@@ -1,4 +1,4 @@
-module answer
+module github.com/Aurivena/answer
 
 go 1.23
 
