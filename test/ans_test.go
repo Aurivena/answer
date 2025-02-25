@@ -1,9 +1,9 @@
 package test
 
 import (
-	"answer/pkg/ansCommand"
-	"answer/pkg/ansError"
 	"fmt"
+	ans "github.com/Aurivena/answer/pkg/ansCommand"
+	"github.com/Aurivena/answer/pkg/ansError"
 	"github.com/gin-gonic/gin"
 	"github.com/ozontech/allure-go/pkg/framework/provider"
 	"github.com/ozontech/allure-go/pkg/framework/runner"

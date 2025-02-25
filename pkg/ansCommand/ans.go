@@ -11,7 +11,7 @@ type Response struct {
 	Message any `json:"message"`
 }
 
-func SendError(c *gin.Context, response string, code int) {
+func SendError(c *gin.Context, response string, code ansError.ErrorCode) {
 	if c == nil {
 		return
 	}
@@ -26,7 +26,7 @@ func SendError(c *gin.Context, response string, code int) {
 	})
 }
 
-func SendSuccess(c *gin.Context, response string, code int) {
+func SendSuccess(c *gin.Context, response string, code ansError.ErrorCode) {
 	if c == nil {
 		return
 	}
@@ -41,7 +41,7 @@ func SendSuccess(c *gin.Context, response string, code int) {
 	})
 }
 
-func SendResponseSuccess(c *gin.Context, output any, processStatus int) {
+func SendResponseSuccess(c *gin.Context, output any, processStatus ansError.ErrorCode) {
 	if c == nil {
 		return
 	}

@@ -2,17 +2,25 @@ package test
 
 import (
 	"github.com/Aurivena/answer/pkg/ansCode"
+	ans "github.com/Aurivena/answer/pkg/ansCommand"
+	"github.com/Aurivena/answer/pkg/ansError"
 	"github.com/ozontech/allure-go/pkg/framework/provider"
 	"github.com/ozontech/allure-go/pkg/framework/runner"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
-var test_statusCode = map[int]string{
+var test_statusCode = map[ansError.ErrorCode]string{
 	1: "Test1",
 }
 
+func f() ansError.ErrorCode {
+	return ansError.OK
+}
+
 func TestAppendCode(t *testing.T) {
+	processStatus := f()
+	ans.SendResponseSuccess(nil, "", processStatus)
 	runner.Run(t, "Проверяет, что добавляется новый код в test_statusCode.", func(t provider.T) {
 		_ = ansCode.AppendCode(2, "Test2", test_statusCode)
 		if ok, _ := ansCode.ConvertCodeToStatus(2, test_statusCode); ok == "Test2" {
