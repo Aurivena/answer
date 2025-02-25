@@ -1,8 +1,8 @@
 package ans
 
 import (
-	"answer/pkg/ansCode"
-	"answer/pkg/ansError"
+	"github.com/Aurivena/answer/pkg/ansCode"
+	"github.com/Aurivena/answer/pkg/ansError"
 	"github.com/gin-gonic/gin"
 )
 

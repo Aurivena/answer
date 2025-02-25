@@ -1,7 +1,7 @@
 package test
 
 import (
-	"answer/pkg/ansCode"
+	"github.com/Aurivena/answer/pkg/ansCode"
 	"github.com/ozontech/allure-go/pkg/framework/provider"
 	"github.com/ozontech/allure-go/pkg/framework/runner"
 	"github.com/stretchr/testify/assert"
