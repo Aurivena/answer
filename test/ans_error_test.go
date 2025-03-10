@@ -10,11 +10,11 @@ import (
 	"testing"
 )
 
-var test_statusCode = map[ansError.ErrorCode]string{
+var test_statusCode = map[int]string{
 	1: "Test1",
 }
 
-func f() ansError.ErrorCode {
+func f() int {
 	return ansError.OK
 }
 

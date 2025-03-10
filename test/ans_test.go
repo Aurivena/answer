@@ -33,7 +33,7 @@ func TestSendError(t *testing.T) {
 		w := httptest.NewRecorder()
 		c, _ := gin.CreateTestContext(w)
 
-		ans.SendError(c, "тест", 404)
+		ans.SendError(c, "тест", ansError.NotFound)
 		assert.JSONEq(t, sendErrorResult, w.Body.String())
 	})
 }
@@ -43,7 +43,7 @@ func TestSendSuccess(t *testing.T) {
 		w := httptest.NewRecorder()
 		c, _ := gin.CreateTestContext(w)
 
-		ans.SendSuccess(c, "тест", 200)
+		ans.SendSuccess(c, "тест", ansError.OK)
 		assert.JSONEq(t, sendSuccessResult, w.Body.String())
 	})
 }
@@ -52,7 +52,7 @@ func TestSendResponseSuccess(t *testing.T) {
 	runner.Run(t, "Отправляет структуру Response", func(t provider.T) {
 		w := httptest.NewRecorder()
 		c, _ := gin.CreateTestContext(w)
-		ans.SendResponseSuccess(c, testVal, 200)
+		ans.SendResponseSuccess(c, testVal, ansError.OK)
 		assert.JSONEq(t, sendResponseSuccessResult, w.Body.String())
 	})
 }

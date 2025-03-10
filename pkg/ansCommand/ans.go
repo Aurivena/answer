@@ -11,11 +11,11 @@ type Response struct {
 	Message any `json:"message"`
 }
 
-func SendError(c *gin.Context, response string, code ansError.ErrorCode) {
+func SendError(c *gin.Context, response string, processStatus int) {
 	if c == nil {
 		return
 	}
-	status, err := ansCode.ConvertCodeToStatus(code, ansError.StatusCode)
+	status, err := ansCode.ConvertCodeToStatus(processStatus, ansError.StatusCode)
 	if err != nil {
 		return
 	}
@@ -26,22 +26,7 @@ func SendError(c *gin.Context, response string, code ansError.ErrorCode) {
 	})
 }
 
-func SendSuccess(c *gin.Context, response string, code ansError.ErrorCode) {
-	if c == nil {
-		return
-	}
-	status, err := ansCode.ConvertCodeToStatus(code, ansError.StatusCode)
-	if err != nil {
-		return
-	}
-	rspSuccess := "Success " + response
-	c.JSON(200, Response{
-		Status:  status,
-		Message: rspSuccess,
-	})
-}
-
-func SendResponseSuccess(c *gin.Context, output any, processStatus ansError.ErrorCode) {
+func SendSuccess(c *gin.Context, response string, processStatus int) {
 	if c == nil {
 		return
 	}
@@ -49,7 +34,22 @@ func SendResponseSuccess(c *gin.Context, output any, processStatus ansError.Erro
 	if err != nil {
 		return
 	}
-	c.JSON(200, Response{
+	rspSuccess := "Success " + response
+	c.JSON(processStatus, Response{
+		Status:  status,
+		Message: rspSuccess,
+	})
+}
+
+func SendResponseSuccess(c *gin.Context, output any, processStatus int) {
+	if c == nil {
+		return
+	}
+	status, err := ansCode.ConvertCodeToStatus(processStatus, ansError.StatusCode)
+	if err != nil {
+		return
+	}
+	c.JSON(processStatus, Response{
 		Status:  status,
 		Message: output,
 	})
