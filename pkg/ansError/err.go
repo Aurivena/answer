@@ -1,6 +1,8 @@
 package ansError
 
-var StatusCode = map[ErrorCode]string{
+type AnsError int
+
+var StatusCode = map[int]string{
 	200: "OK",
 	201: "Created",
 	202: "Accepted",
@@ -17,8 +19,6 @@ var StatusCode = map[ErrorCode]string{
 	503: "Service Unavailable",
 	504: "Gateway Timeout",
 }
-
-type ErrorCode int
 
 // CONST, чтобы вызывать нужный код ошибки
 const (
