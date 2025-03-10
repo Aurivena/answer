@@ -1,5 +1,7 @@
 package ansError
 
+type AnsError int
+
 var StatusCode = map[int]string{
 	200: "OK",
 	201: "Created",
