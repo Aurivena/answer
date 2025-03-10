@@ -11,31 +11,31 @@ type Response struct {
 	Message any `json:"message"`
 }
 
-func SendError(c *gin.Context, response string, code ansError.ErrorCode) {
+func SendError(c *gin.Context, response string, processStatus ansError.ErrorCode) {
 	if c == nil {
 		return
 	}
-	status, err := ansCode.ConvertCodeToStatus(code, ansError.StatusCode)
+	status, err := ansCode.ConvertCodeToStatus(processStatus, ansError.StatusCode)
 	if err != nil {
 		return
 	}
 	rspError := "Error " + response
-	c.JSON(200, Response{
+	c.JSON(int(processStatus), Response{
 		Status:  status,
 		Message: rspError,
 	})
 }
 
-func SendSuccess(c *gin.Context, response string, code ansError.ErrorCode) {
+func SendSuccess(c *gin.Context, response string, processStatus ansError.ErrorCode) {
 	if c == nil {
 		return
 	}
-	status, err := ansCode.ConvertCodeToStatus(code, ansError.StatusCode)
+	status, err := ansCode.ConvertCodeToStatus(processStatus, ansError.StatusCode)
 	if err != nil {
 		return
 	}
 	rspSuccess := "Success " + response
-	c.JSON(200, Response{
+	c.JSON(int(processStatus), Response{
 		Status:  status,
 		Message: rspSuccess,
 	})
@@ -49,7 +49,7 @@ func SendResponseSuccess(c *gin.Context, output any, processStatus ansError.Erro
 	if err != nil {
 		return
 	}
-	c.JSON(200, Response{
+	c.JSON(int(processStatus), Response{
 		Status:  status,
 		Message: output,
 	})
