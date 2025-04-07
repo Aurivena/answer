@@ -8,20 +8,11 @@ import (
 	"testing"
 )
 
-var test_statusCode = map[answer.ErrorCode]string{
-	1: "Test1",
-}
-
-func f() answer.ErrorCode {
-	return answer.OK
-}
-
 func TestAppendCode(t *testing.T) {
-	processStatus := f()
-	answer.SendResponseSuccess(nil, "", processStatus)
-	runner.Run(t, "Проверяет, что добавляется новый код в test_statusCode.", func(t provider.T) {
-		_ = answer.AppendCode(2, "Test2", test_statusCode)
-		if ok, _ := answer.ConvertCodeToStatus(2, test_statusCode); ok == "Test2" {
+	answer.SendResponseSuccess(nil, "", answer.OK)
+	runner.Run(t, "Проверяет, что добавляется новый код.", func(t provider.T) {
+		_ = answer.AppendCode(2, "Test2")
+		if ok, _ := answer.ConvertCodeToStatus(2); ok == "Test2" {
 			assert.True(t, true, "Новый код добавлен в map.")
 		} else {
 			assert.False(t, false, "Ошибка. Метод не добавляет код в map.")
@@ -30,8 +21,8 @@ func TestAppendCode(t *testing.T) {
 }
 
 func TestFailAppendCode(t *testing.T) {
-	runner.Run(t, "Проверяет, что новый код не будет добавлен в test_statusCode и вызовет ошибку.", func(t provider.T) {
-		err := answer.AppendCode(1, "Test2", test_statusCode)
+	runner.Run(t, "Проверяет, что новый код не будет добавлен и вызовет ошибку.", func(t provider.T) {
+		err := answer.AppendCode(400, "Test2")
 		if err != nil {
 			assert.True(t, true, "Код обработал событие при котором текущий код уже существует.")
 		} else {
@@ -42,9 +33,9 @@ func TestFailAppendCode(t *testing.T) {
 }
 
 func TestDeleteCode(t *testing.T) {
-	runner.Run(t, "Проверяет, что удаляет код в test_statusCode.", func(t provider.T) {
-		_ = answer.DeleteCode(2, test_statusCode)
-		if ok, _ := answer.ConvertCodeToStatus(2, test_statusCode); ok != "Test1" {
+	runner.Run(t, "Проверяет, что удаляет код.", func(t provider.T) {
+		_ = answer.DeleteCode(400)
+		if ok, _ := answer.ConvertCodeToStatus(2); ok != "Test1" {
 			assert.True(t, true, "Код удален из map.")
 		} else {
 			assert.False(t, false, "Ошибка. Метод не удаляет код из map.")
@@ -53,8 +44,8 @@ func TestDeleteCode(t *testing.T) {
 }
 
 func TestFailDeleteCode(t *testing.T) {
-	runner.Run(t, "Проверяет, что функция не удалит код в test_statusCode и вызовет ошибку.", func(t provider.T) {
-		err := answer.DeleteCode(666, test_statusCode)
+	runner.Run(t, "Проверяет, что функция не удалит код и вызовет ошибку.", func(t provider.T) {
+		err := answer.DeleteCode(666)
 		if err != nil {
 			assert.True(t, true, "Код корректно обрабатывает событие при котором код не будет удален, если его нету в map")
 		} else {
@@ -65,7 +56,7 @@ func TestFailDeleteCode(t *testing.T) {
 
 func TestConvertCodeToStatus(t *testing.T) {
 	runner.Run(t, "Проверяет, что конвертирует указанный код в статус.", func(t provider.T) {
-		if ok, _ := answer.ConvertCodeToStatus(1, test_statusCode); ok == "Test1" {
+		if ok, _ := answer.ConvertCodeToStatus(200); ok == "OK" {
 			assert.True(t, true, "Функция правильно конвертирует указанный код в статус.")
 		} else {
 			assert.False(t, false, "Ошибка. Метод не конвертирует указанный код в статус.")
@@ -75,7 +66,7 @@ func TestConvertCodeToStatus(t *testing.T) {
 
 func TestFailConvertCodeToStatus(t *testing.T) {
 	runner.Run(t, "Проверяет, что функция не конвертирует указанный код в статус и вызовет ошибку.", func(t provider.T) {
-		_, err := answer.ConvertCodeToStatus(666, test_statusCode)
+		_, err := answer.ConvertCodeToStatus(666)
 		if err != nil {
 			assert.True(t, true, "Конвертация не произошла тк такого кода не существует")
 		} else {

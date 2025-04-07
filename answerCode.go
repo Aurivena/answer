@@ -4,33 +4,40 @@ import (
 	"errors"
 )
 
-func ConvertCodeToStatus(code ErrorCode, stc map[ErrorCode]string) (string, error) {
-	if ok := stc[code]; ok == "" {
+/*
+ConvertCodeToStatus - assistent funktion.
+Dazutun fur konvertierung code in Nachricht.
+*/
+func ConvertCodeToStatus(code ErrorCode) (string, error) {
+	if ok := StatusCode[code]; ok == "" {
 		return "", errors.New("такой код не существует")
 	}
-	return stc[code], nil
+	return StatusCode[code], nil
 }
 
-func AppendCode(code ErrorCode, response string, stc map[ErrorCode]string) error {
-	if ok := stc[code]; ok != "" {
+// AppendCode - dazutun Individuell code das weitere Verwendung.
+func AppendCode(code ErrorCode, response string) error {
+	if ok := StatusCode[code]; ok != "" {
 		return errors.New("такой код уже есть")
 	}
-	stc[code] = response
+	StatusCode[code] = response
 	return nil
 }
 
-func ChangeCode(code ErrorCode, response string, stc map[ErrorCode]string) error {
-	if ok := stc[code]; ok == "" {
+// ChangeCode - verändern bestehende in map code.
+func ChangeCode(code ErrorCode, response string) error {
+	if ok := StatusCode[code]; ok == "" {
 		return errors.New("такой код не существует")
 	}
-	stc[code] = response
+	StatusCode[code] = response
 	return nil
 }
 
-func DeleteCode(code ErrorCode, stc map[ErrorCode]string) error {
-	if ok := stc[code]; ok == "" {
+// DeleteCode - entfernt Individuell code.
+func DeleteCode(code ErrorCode) error {
+	if ok := StatusCode[code]; ok == "" {
 		return errors.New("такой код не существует")
 	}
-	delete(stc, code)
+	delete(StatusCode, code)
 	return nil
 }

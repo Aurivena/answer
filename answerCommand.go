@@ -4,16 +4,20 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// Response - Struktur die Antwort
 type Response struct {
 	Status  any `json:"status"`
 	Message any `json:"message"`
 }
 
+/*
+SendError - dient zu senden eines Fehler code und einer Nachricht.
+*/
 func SendError(c *gin.Context, response string, processStatus ErrorCode) {
 	if c == nil {
 		return
 	}
-	status, err := ConvertCodeToStatus(processStatus, StatusCode)
+	status, err := ConvertCodeToStatus(processStatus)
 	if err != nil {
 		return
 	}
@@ -24,11 +28,14 @@ func SendError(c *gin.Context, response string, processStatus ErrorCode) {
 	})
 }
 
+/*
+SendSuccess - dient zu senden eines Erfolg code und einer Nachricht.
+*/
 func SendSuccess(c *gin.Context, response string, processStatus ErrorCode) {
 	if c == nil {
 		return
 	}
-	status, err := ConvertCodeToStatus(processStatus, StatusCode)
+	status, err := ConvertCodeToStatus(processStatus)
 	if err != nil {
 		return
 	}
@@ -39,11 +46,15 @@ func SendSuccess(c *gin.Context, response string, processStatus ErrorCode) {
 	})
 }
 
+/*
+SendResponseSuccess - dient zu senden Individuell code.
+output - das einer Nachricht oder struktur antwort.
+*/
 func SendResponseSuccess(c *gin.Context, output any, processStatus ErrorCode) {
 	if c == nil {
 		return
 	}
-	status, err := ConvertCodeToStatus(processStatus, StatusCode)
+	status, err := ConvertCodeToStatus(processStatus)
 	if err != nil {
 		return
 	}
