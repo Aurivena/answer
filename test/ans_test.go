@@ -2,8 +2,7 @@ package test
 
 import (
 	"fmt"
-	ans "github.com/Aurivena/answer/pkg/ansCommand"
-	"github.com/Aurivena/answer/pkg/ansError"
+	"github.com/Aurivena/answer"
 	"github.com/gin-gonic/gin"
 	"github.com/ozontech/allure-go/pkg/framework/provider"
 	"github.com/ozontech/allure-go/pkg/framework/runner"
@@ -23,9 +22,9 @@ var testVal = test{
 }
 
 var (
-	sendErrorResult           = fmt.Sprintf(`{"status":"%s","message":"Error тест"}`, ansError.StatusCode[ansError.NotFound])
-	sendSuccessResult         = fmt.Sprintf(`{"status":"%s","message":"Success тест"}`, ansError.StatusCode[ansError.OK])
-	sendResponseSuccessResult = fmt.Sprintf(`{"status": "%s", "message": {"Age": %d, "Name": "%s"}}`, ansError.StatusCode[ansError.OK], testVal.Age, testVal.Name)
+	sendErrorResult           = fmt.Sprintf(`{"status":"%s","message":"Error тест"}`, answer.StatusCode[answer.NotFound])
+	sendSuccessResult         = fmt.Sprintf(`{"status":"%s","message":"Success тест"}`, answer.StatusCode[answer.OK])
+	sendResponseSuccessResult = fmt.Sprintf(`{"status": "%s", "message": {"Age": %d, "Name": "%s"}}`, answer.StatusCode[answer.OK], testVal.Age, testVal.Name)
 )
 
 func TestSendError(t *testing.T) {
@@ -33,7 +32,7 @@ func TestSendError(t *testing.T) {
 		w := httptest.NewRecorder()
 		c, _ := gin.CreateTestContext(w)
 
-		ans.SendError(c, "тест", ansError.NotFound)
+		answer.SendError(c, "тест", answer.NotFound)
 		assert.JSONEq(t, sendErrorResult, w.Body.String())
 	})
 }
@@ -43,7 +42,7 @@ func TestSendSuccess(t *testing.T) {
 		w := httptest.NewRecorder()
 		c, _ := gin.CreateTestContext(w)
 
-		ans.SendSuccess(c, "тест", ansError.OK)
+		answer.SendSuccess(c, "тест", answer.OK)
 		assert.JSONEq(t, sendSuccessResult, w.Body.String())
 	})
 }
@@ -52,7 +51,7 @@ func TestSendResponseSuccess(t *testing.T) {
 	runner.Run(t, "Отправляет структуру Response", func(t provider.T) {
 		w := httptest.NewRecorder()
 		c, _ := gin.CreateTestContext(w)
-		ans.SendResponseSuccess(c, testVal, ansError.OK)
+		answer.SendResponseSuccess(c, testVal, answer.OK)
 		assert.JSONEq(t, sendResponseSuccessResult, w.Body.String())
 	})
 }

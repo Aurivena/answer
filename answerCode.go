@@ -1,18 +1,17 @@
-package ansCode
+package answer
 
 import (
 	"errors"
-	"github.com/Aurivena/answer/pkg/ansError"
 )
 
-func ConvertCodeToStatus(code ansError.ErrorCode, stc map[ansError.ErrorCode]string) (string, error) {
+func ConvertCodeToStatus(code ErrorCode, stc map[ErrorCode]string) (string, error) {
 	if ok := stc[code]; ok == "" {
 		return "", errors.New("такой код не существует")
 	}
 	return stc[code], nil
 }
 
-func AppendCode(code ansError.ErrorCode, response string, stc map[ansError.ErrorCode]string) error {
+func AppendCode(code ErrorCode, response string, stc map[ErrorCode]string) error {
 	if ok := stc[code]; ok != "" {
 		return errors.New("такой код уже есть")
 	}
@@ -20,7 +19,7 @@ func AppendCode(code ansError.ErrorCode, response string, stc map[ansError.Error
 	return nil
 }
 
-func ChangeCode(code ansError.ErrorCode, response string, stc map[ansError.ErrorCode]string) error {
+func ChangeCode(code ErrorCode, response string, stc map[ErrorCode]string) error {
 	if ok := stc[code]; ok == "" {
 		return errors.New("такой код не существует")
 	}
@@ -28,7 +27,7 @@ func ChangeCode(code ansError.ErrorCode, response string, stc map[ansError.Error
 	return nil
 }
 
-func DeleteCode(code ansError.ErrorCode, stc map[ansError.ErrorCode]string) error {
+func DeleteCode(code ErrorCode, stc map[ErrorCode]string) error {
 	if ok := stc[code]; ok == "" {
 		return errors.New("такой код не существует")
 	}

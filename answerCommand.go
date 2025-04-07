@@ -1,8 +1,6 @@
-package ans
+package answer
 
 import (
-	"github.com/Aurivena/answer/pkg/ansCode"
-	"github.com/Aurivena/answer/pkg/ansError"
 	"github.com/gin-gonic/gin"
 )
 
@@ -11,11 +9,11 @@ type Response struct {
 	Message any `json:"message"`
 }
 
-func SendError(c *gin.Context, response string, processStatus ansError.ErrorCode) {
+func SendError(c *gin.Context, response string, processStatus ErrorCode) {
 	if c == nil {
 		return
 	}
-	status, err := ansCode.ConvertCodeToStatus(processStatus, ansError.StatusCode)
+	status, err := ConvertCodeToStatus(processStatus, StatusCode)
 	if err != nil {
 		return
 	}
@@ -26,11 +24,11 @@ func SendError(c *gin.Context, response string, processStatus ansError.ErrorCode
 	})
 }
 
-func SendSuccess(c *gin.Context, response string, processStatus ansError.ErrorCode) {
+func SendSuccess(c *gin.Context, response string, processStatus ErrorCode) {
 	if c == nil {
 		return
 	}
-	status, err := ansCode.ConvertCodeToStatus(processStatus, ansError.StatusCode)
+	status, err := ConvertCodeToStatus(processStatus, StatusCode)
 	if err != nil {
 		return
 	}
@@ -41,11 +39,11 @@ func SendSuccess(c *gin.Context, response string, processStatus ansError.ErrorCo
 	})
 }
 
-func SendResponseSuccess(c *gin.Context, output any, processStatus ansError.ErrorCode) {
+func SendResponseSuccess(c *gin.Context, output any, processStatus ErrorCode) {
 	if c == nil {
 		return
 	}
-	status, err := ansCode.ConvertCodeToStatus(processStatus, ansError.StatusCode)
+	status, err := ConvertCodeToStatus(processStatus, StatusCode)
 	if err != nil {
 		return
 	}
