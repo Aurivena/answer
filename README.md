@@ -1,4 +1,4 @@
-## Библиотека предназначенная для получения ответов от сервера.
+## Die Bibliothek ist so konzipiert, dass sie eine Antwort vom Server erhält
 
 #### So installieren bibliothek
 
